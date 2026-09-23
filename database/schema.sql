@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco NUMERIC(10, 2) NOT NULL CHECK (preco >= 0),
+    descricao TEXT
+);
+
+CREATE TABLE IF NOT EXISTS pessoas (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL
+);

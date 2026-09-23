@@ -1,0 +1,50 @@
+################################################
+### ROTAS DE PRODUTOS
+################################################
+
+### 1. Listar todos os produtos
+GET http://localhost:3000/produtos
+
+###
+
+### 2. Cadastrar um novo produto
+POST http://localhost:3000/produtos
+Content-Type: application/json
+
+{
+  "nome": "Monitor Gamer 24",
+  "preco": 850.00,
+  "descricao": "Monitor Full HD 144Hz"
+}
+
+
+################################################
+### ROTAS DE PESSOAS (PARTE 2)
+################################################
+
+### 3. Listar todas as pessoas
+GET http://localhost:3000/pessoas
+
+###
+
+### 4. Buscar pessoa por ID
+GET http://localhost:3000/pessoas/1
+
+###
+
+### 5. Buscar pessoa por CPF
+GET http://localhost:3000/pessoas/cpf/125.959.743-19
+
+###
+
+### 6. Cadastrar uma nova pessoa
+POST http://localhost:3000/pessoas
+Content-Type: application/json
+
+{
+  "nome": "Lucas Silva",
+  "email": "lucas.silva2026@email.com",
+  "telefone": "(11) 91234-5678",
+  "cpf": "111.222.333-44",
+  "senha": "senhaSegura123"
+}
