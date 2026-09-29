@@ -6,6 +6,7 @@ const cors = require('cors');
 // Importa os arquivos de rotas
 const produtoRoutes = require('./routes/produtoRoutes');
 const pessoaRoutes = require('./routes/pessoaRoutes'); // 👈 NOVO: Importa as rotas de pessoas
+const pedidoRoutes = require('./routes/pedidoRoutes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 // Montagem de Rotas Principais
 app.use('/produtos', produtoRoutes);
 app.use('/pessoas', pessoaRoutes); // 👈 NOVO: Qualquer URL começando com /pessoas vai para pessoaRoutes
+app.use('/pedidos', pedidoRoutes);
 
 // ACOPLAMENTO: Exportamos a aplicação montada
 app.use((req, res) => {

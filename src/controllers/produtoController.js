@@ -6,14 +6,26 @@ const ProdutoRepository = require('../repositories/produtoRepository');
 // Função ativada quando o usuário quer ver os produtos
 const listarProdutos = async (req, res) => {
     try {
-        // Pede ao Repository: "Me dê todos os produtos"
-        const produtos = await ProdutoRepository.getAllProdutos(); 
+        // Captura da URL: http://localhost:3000/produtos?page=1&limit=10
+        // Se o usuário não mandar nada, o padrão será página 1, com 10 itens.
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
         
-        // Responde ao usuário com a lista em formato JSON
-        res.json(produtos); 
+        // Matemática da paginação: (página - 1) * limite
+        const offset = (page - 1) * limit;
+
+        const produtos = await ProdutoRepository.getAllProdutos(limit, offset);
+        
+        // Retornamos um objeto mais rico, avisando o usuário em qual página ele está
+        res.json({
+            paginaAtual: page,
+            itensPorPagina: limit,
+            quantidadeRetornada: produtos.length,
+            dados: produtos
+        });
     } catch (erro) {
         console.error(erro.message);
-        res.status(500).json({ mensagem: 'Erro interno ao buscar produtos' });
+        res.status(500).json({ mensagem: 'Erro interno' });
     }
 };
 

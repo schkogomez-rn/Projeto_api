@@ -3,10 +3,10 @@
 // ACOPLAMENTO: Importa a conexão com o banco
 const pool = require('../config/db');
 
-// Busca todas as pessoas
-const getAllPessoas = async () => {
-    const sql = 'SELECT id, nome, email, telefone, cpf FROM pessoas';
-    const resultado = await pool.query(sql);
+// Busca todas as pessoas com paginação
+const getAllPessoas = async (limit, offset) => {
+    const sql = 'SELECT * FROM pessoas ORDER BY id LIMIT $1 OFFSET $2';
+    const resultado = await pool.query(sql, [limit, offset]);
     return resultado.rows;
 };
 
