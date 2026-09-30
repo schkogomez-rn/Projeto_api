@@ -1,13 +1,18 @@
 ################################################
-### ROTAS DE PRODUTOS
+### ROTAS DE PRODUTOS (CRUD COMPLETO)
 ################################################
 
-### 1. Listar todos os produtos
+### 1. Listar todos os produtos (com paginação padrão)
 GET http://localhost:3000/produtos
 
 ###
 
-### 2. Cadastrar um novo produto
+### 2. Listar produtos com parâmetros de paginação (página 1, limite 5)
+GET http://localhost:3000/produtos?page=1&limit=5
+
+###
+
+### 3. Cadastrar um novo produto (POST)
 POST http://localhost:3000/produtos
 Content-Type: application/json
 
@@ -17,27 +22,93 @@ Content-Type: application/json
   "descricao": "Monitor Full HD 144Hz"
 }
 
+###
+
+### 4. Atualizar um produto completo (PUT) - Sucesso
+PUT http://localhost:3000/produtos/1
+Content-Type: application/json
+
+{
+  "nome": "Monitor Gamer 144hz",
+  "preco": 1200.50,
+  "descricao": "Monitor atualizado"
+}
+
+###
+
+### 5. Atualizar produto (PUT) - Teste de Validação: Corpo incompleto (Erro 400)
+PUT http://localhost:3000/produtos/1
+Content-Type: application/json
+
+{
+  "nome": "Tentativa de atualizar só o nome"
+}
+
+###
+
+### 6. Atualizar produto (PUT) - Teste de Validação: ID inválido (Erro 400)
+PUT http://localhost:3000/produtos/abc
+Content-Type: application/json
+
+{
+  "nome": "Produto Teste",
+  "preco": 100.00,
+  "descricao": "Descricao teste"
+}
+
+###
+
+### 7. Atualizar produto (PUT) - Produto Inexistente (Erro 404)
+PUT http://localhost:3000/produtos/99999
+Content-Type: application/json
+
+{
+  "nome": "Produto Fantasma",
+  "preco": 99.90,
+  "descricao": "Não existe no banco"
+}
+
+###
+
+### 8. Deletar produto por ID (DELETE) - Sucesso
+DELETE http://localhost:3000/produtos/1
+
+###
+
+### 9. Deletar produto (DELETE) - ID Inválido (Erro 400)
+DELETE http://localhost:3000/produtos/abc
+
+###
+
+### 10. Deletar produto (DELETE) - Produto Inexistente (Erro 404)
+DELETE http://localhost:3000/produtos/99999
+
 
 ################################################
-### ROTAS DE PESSOAS (PARTE 2)
+### ROTAS DE PESSOAS
 ################################################
 
-### 3. Listar todas as pessoas
+### 11. Listar todas as pessoas
 GET http://localhost:3000/pessoas
 
 ###
 
-### 4. Buscar pessoa por ID
+### 12. Listar pessoas com paginação
+GET http://localhost:3000/pessoas?page=1&limit=5
+
+###
+
+### 13. Buscar pessoa por ID
 GET http://localhost:3000/pessoas/1
 
 ###
 
-### 5. Buscar pessoa por CPF
+### 14. Buscar pessoa por CPF
 GET http://localhost:3000/pessoas/cpf/125.959.743-19
 
 ###
 
-### 6. Cadastrar uma nova pessoa
+### 15. Cadastrar uma nova pessoa (POST)
 POST http://localhost:3000/pessoas
 Content-Type: application/json
 
@@ -48,3 +119,16 @@ Content-Type: application/json
   "cpf": "111.222.333-44",
   "senha": "senhaSegura123"
 }
+
+
+################################################
+### ROTAS DE PEDIDOS
+################################################
+
+### 16. Listar todos os pedidos (JOIN com Pessoas e Produtos)
+GET http://localhost:3000/pedidos
+
+###
+
+### 17. Listar pedidos com paginação
+GET http://localhost:3000/pedidos?page=1&limit=5

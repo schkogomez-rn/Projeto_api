@@ -12,5 +12,9 @@ router.get('/', produtoController.listarProdutos);
 // Quando houver um POST na rota principal ('/'), dispare a função criarProduto
 router.post('/', produtoController.criarProduto);
 
+// Adiciona as rotas de atualização (PUT) e exclusão (DELETE) por ID
+router.put('/:id', produtoController.atualizarProduto);
+router.delete('/:id', produtoController.deletarProduto);
+
 // ACOPLAMENTO: Exporta o conjunto de rotas de produtos
 module.exports = router;

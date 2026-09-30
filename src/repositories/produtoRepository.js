@@ -18,8 +18,24 @@ const createProduto = async (nome, preco, descricao) => {
     return resultado.rows[0]; // Devolve o produto que acabou de ser criado
 };
 
+// Função para atualizar um produto existente (Note o RETURNING *)
+const updateProduto = async (id, nome, preco, descricao) => {
+    const sql = 'UPDATE produtos SET nome = $1, preco = $2, descricao = $3 WHERE id = $4 RETURNING *';
+    const resultado = await pool.query(sql, [nome, preco, descricao, id]);
+    return resultado; 
+};
+
+// Função para deletar um produto (Note o RETURNING *)
+const deleteProduto = async (id) => {
+    const sql = 'DELETE FROM produtos WHERE id = $1 RETURNING *';
+    const resultado = await pool.query(sql, [id]);
+    return resultado;
+};
+
 // ACOPLAMENTO: Exportamos as funções para que outros arquivos (como o Controller) possam usá-las.
 module.exports = {
     getAllProdutos,
-    createProduto
+    createProduto,
+    updateProduto,
+    deleteProduto
 };
