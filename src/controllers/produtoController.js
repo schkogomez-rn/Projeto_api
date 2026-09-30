@@ -29,6 +29,30 @@ const listarProdutos = async (req, res) => {
     }
 };
 
+// Função ativada quando o usuário quer buscar um produto por ID
+const buscarProdutoPorId = async (req, res) => {
+    try {
+        const id = Number(req.params.id);
+        
+        // Verifica se o ID é um número inteiro positivo
+        if (!Number.isInteger(id) || id <= 0) {
+            return res.status(400).json({ mensagem: 'O ID informado na URL é inválido.' });
+        }
+
+        const resultado = await ProdutoRepository.getProdutoById(id);
+
+        // Verifica se o produto foi encontrado no banco
+        if (resultado.rowCount === 0) {
+            return res.status(404).json({ mensagem: 'Produto não encontrado no banco de dados.' });
+        }
+
+        res.json(resultado.rows[0]);
+    } catch (erro) {
+        console.error('Erro ao buscar produto por ID:', erro.message);
+        res.status(500).json({ mensagem: 'Erro interno ao buscar produto' });
+    }
+};
+
 // Função ativada quando o usuário quer cadastrar algo
 const criarProduto = async (req, res) => {
     try {
@@ -110,6 +134,8 @@ const deletarProduto = async (req, res) => {
 // ACOPLAMENTO: Exporta este "cérebro" para que as Rotas saibam o que acionar.
 module.exports = { 
     listarProdutos, 
+    buscarProdutoPorId,
+    listarProdutoPorId: buscarProdutoPorId,
     criarProduto,
     atualizarProduto,
     deletarProduto

@@ -9,6 +9,9 @@ const produtoController = require('../controllers/produtoController');
 // Quando houver um GET na rota principal ('/'), dispare a função listarProdutos
 router.get('/', produtoController.listarProdutos);
 
+// Quando houver um GET com ID ('/:id'), dispare a função buscarProdutoPorId
+router.get('/:id', produtoController.buscarProdutoPorId);
+
 // Quando houver um POST na rota principal ('/'), dispare a função criarProduto
 router.post('/', produtoController.criarProduto);
 

@@ -11,6 +11,13 @@ const getAllProdutos = async (limit, offset) => {
     return resultado.rows; // Devolve apenas a lista de produtos (as linhas)
 };
 
+// Função para buscar um produto específico pelo ID
+const getProdutoById = async (id) => {
+    const sql = 'SELECT * FROM produtos WHERE id = $1';
+    const resultado = await pool.query(sql, [id]);
+    return resultado;
+};
+
 // Função para criar um produto
 const createProduto = async (nome, preco, descricao) => {
     const sql = 'INSERT INTO produtos (nome, preco, descricao) VALUES ($1, $2, $3) RETURNING *';
@@ -35,6 +42,7 @@ const deleteProduto = async (id) => {
 // ACOPLAMENTO: Exportamos as funções para que outros arquivos (como o Controller) possam usá-las.
 module.exports = {
     getAllProdutos,
+    getProdutoById,
     createProduto,
     updateProduto,
     deleteProduto
